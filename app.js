@@ -7,15 +7,16 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+const dotenv = require('dotenv');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URI =
-  'mongodb+srv://admin-jojo:maryovie123@cluster0.uba8jui.mongodb.net/node-shop?retryWrites=true&w=majority';
-// 'mongodb+srv://admin-jojo:maryovie123@cluster0.uba8jui.mongodb.net/node-shop';
-
 const app = express();
+dotenv.config();
+
+const MONGODB_URI = process.env.MONGO;
+
 const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: 'sessions',
